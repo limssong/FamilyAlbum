@@ -41,6 +41,29 @@ jobs:
         run: pnpm run build
         env:
           NODE_ENV: production
+          NEXT_PUBLIC_BASE_PATH: /Flashback
+
+      - name: Restore API routes and OAuth callbacks
+        if: always()
+        run: |
+          # 빌드 스크립트가 자동으로 복원하지만, 확실하게 하기 위해
+          if [ -d ".api.disabled" ]; then
+            mv .api.disabled app/api
+            echo "API routes restored"
+          fi
+          if [ -d ".auth.disabled" ]; then
+            if [ -d ".auth.disabled/kakao-callback" ]; then
+              mkdir -p app/auth/kakao
+              mv .auth.disabled/kakao-callback app/auth/kakao/callback
+              echo "Kakao callback page restored"
+            fi
+            if [ -d ".auth.disabled/naver-callback" ]; then
+              mkdir -p app/auth/naver
+              mv .auth.disabled/naver-callback app/auth/naver/callback
+              echo "Naver callback page restored"
+            fi
+            rmdir .auth.disabled 2>/dev/null || true
+          fi
           # 환경 변수는 GitHub Secrets에 설정 후 주석 해제하여 사용
           # NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
           # NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: ${{ secrets.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN }}

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { signInWithKakao } from '@/lib/auth'
 
@@ -10,7 +10,10 @@ declare global {
   }
 }
 
-export default function KakaoCallback() {
+// 정적 내보내기를 위한 설정 - 빌드 시 정적 페이지 생성 안 함
+export const dynamicParams = true
+
+function KakaoCallbackContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -63,6 +66,18 @@ export default function KakaoCallback() {
     <div className="min-h-screen flex items-center justify-center">
       <div className="text-gray-500">로그인 처리 중...</div>
     </div>
+  )
+}
+
+export default function KakaoCallback() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-gray-500">로딩 중...</div>
+      </div>
+    }>
+      <KakaoCallbackContent />
+    </Suspense>
   )
 }
 

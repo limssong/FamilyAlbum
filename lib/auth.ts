@@ -51,20 +51,31 @@ export async function signInWithKakao(accessToken: string, userInfo: any) {
     await setDoc(userRef, userData, { merge: true })
 
     // Firebase Custom Token 생성 (서버에서 처리해야 함)
-    // TODO: Firebase Admin SDK 설정 후 주석 해제
+    // GitHub Pages는 정적 사이트이므로 API 라우트를 사용할 수 없음
+    // TODO: Firebase Admin SDK 설정 후 별도 서버에서 처리하거나 클라이언트 인증 사용
     try {
-      const customToken = await fetch('/api/auth/custom-token', {
+      // basePath를 고려한 API 경로
+      const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
+      const apiUrl = `${basePath}/api/auth/custom-token`
+      
+      const customToken = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ provider: 'kakao', providerId, userInfo }),
-      }).then((res) => res.json())
+      }).then((res) => {
+        if (!res.ok) {
+          throw new Error('API route not available')
+        }
+        return res.json()
+      })
 
-      if (customToken.token) {
+      if (customToken?.token && auth) {
         await signInWithCustomToken(auth, customToken.token)
       }
     } catch (error) {
-      console.warn('Custom token creation failed, continuing without Firebase Auth:', error)
-      // Firebase Admin이 설정되지 않은 경우에도 계속 진행
+      // GitHub Pages에서는 API 라우트를 사용할 수 없으므로 에러를 무시
+      console.warn('Custom token creation skipped (static export mode):', error)
+      // Firebase를 클라이언트에서 직접 사용하므로 계속 진행
     }
 
     return { user: userData, isApproved: userData.isApproved }
@@ -111,20 +122,31 @@ export async function signInWithNaver(accessToken: string, userInfo: any) {
     await setDoc(userRef, userData, { merge: true })
 
     // Firebase Custom Token 생성
-    // TODO: Firebase Admin SDK 설정 후 주석 해제
+    // GitHub Pages는 정적 사이트이므로 API 라우트를 사용할 수 없음
+    // TODO: Firebase Admin SDK 설정 후 별도 서버에서 처리하거나 클라이언트 인증 사용
     try {
-      const customToken = await fetch('/api/auth/custom-token', {
+      // basePath를 고려한 API 경로
+      const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
+      const apiUrl = `${basePath}/api/auth/custom-token`
+      
+      const customToken = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ provider: 'naver', providerId, userInfo }),
-      }).then((res) => res.json())
+      }).then((res) => {
+        if (!res.ok) {
+          throw new Error('API route not available')
+        }
+        return res.json()
+      })
 
-      if (customToken.token) {
+      if (customToken?.token && auth) {
         await signInWithCustomToken(auth, customToken.token)
       }
     } catch (error) {
-      console.warn('Custom token creation failed, continuing without Firebase Auth:', error)
-      // Firebase Admin이 설정되지 않은 경우에도 계속 진행
+      // GitHub Pages에서는 API 라우트를 사용할 수 없으므로 에러를 무시
+      console.warn('Custom token creation skipped (static export mode):', error)
+      // Firebase를 클라이언트에서 직접 사용하므로 계속 진행
     }
 
     return { user: userData, isApproved: userData.isApproved }
@@ -137,6 +159,10 @@ export async function signInWithNaver(accessToken: string, userInfo: any) {
 // 로그아웃
 export async function signOut() {
   try {
+    if (!auth) {
+      console.warn('Firebase Auth is not initialized.')
+      return
+    }
     await firebaseSignOut(auth)
   } catch (error) {
     console.error('Error signing out:', error)
@@ -147,6 +173,11 @@ export async function signOut() {
 // 현재 사용자 정보 가져오기
 export async function getCurrentUser(): Promise<User | null> {
   return new Promise((resolve) => {
+    if (!auth) {
+      resolve(null)
+      return
+    }
+
     onAuthStateChanged(auth, async (firebaseUser: FirebaseUser | null) => {
       if (!firebaseUser) {
         resolve(null)
@@ -154,6 +185,11 @@ export async function getCurrentUser(): Promise<User | null> {
       }
 
       try {
+        if (!db) {
+          resolve(null)
+          return
+        }
+
         // Firestore에서 사용자 정보 가져오기
         const userRef = doc(db, USERS_COLLECTION, firebaseUser.uid)
         const userSnap = await getDoc(userRef)

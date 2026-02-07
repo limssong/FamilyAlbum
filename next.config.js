@@ -10,6 +10,18 @@ const nextConfig = {
   basePath: basePath,
   assetPrefix: basePath,
   trailingSlash: true, // GitHub Pages 호환성
+  // API 라우트는 정적 내보내기에서 사용할 수 없으므로 제외
+  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
+  // api.disabled 디렉토리 제외
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+      }
+    }
+    return config
+  },
   images: {
     unoptimized: true, // GitHub Pages는 이미지 최적화를 지원하지 않음
     remotePatterns: [

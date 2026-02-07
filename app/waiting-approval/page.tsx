@@ -11,6 +11,11 @@ export default function WaitingApprovalPage() {
   const [userEmail, setUserEmail] = useState<string>('')
 
   useEffect(() => {
+    if (!auth) {
+      router.push('/login')
+      return
+    }
+
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (!user) {
         router.push('/login')
@@ -35,8 +40,17 @@ export default function WaitingApprovalPage() {
   }, [router])
 
   const handleLogout = async () => {
-    await signOut(auth)
-    router.push('/login')
+    if (!auth) {
+      router.push('/login')
+      return
+    }
+    try {
+      await signOut(auth)
+      router.push('/login')
+    } catch (error) {
+      console.error('Logout error:', error)
+      router.push('/login')
+    }
   }
 
   return (
