@@ -41,7 +41,7 @@ jobs:
         run: pnpm run build
         env:
           NODE_ENV: production
-          NEXT_PUBLIC_BASE_PATH: /Flashback
+          NEXT_PUBLIC_BASE_PATH: /FamilyAlbum
 
       - name: Restore API routes and OAuth callbacks
         if: always()

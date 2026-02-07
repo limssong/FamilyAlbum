@@ -1,9 +1,9 @@
 {
-  "name": "flashback",
+  "name": "familyalbum",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "build": "node scripts/prepare-build.js && next build && node scripts/restore-build.js",
     "build:dev": "next build",
     "build:static": "node scripts/prepare-build.js && next build && node scripts/restore-build.js",

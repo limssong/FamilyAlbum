@@ -1,4 +1,4 @@
-# Flashback
+# FamilyAlbum
 
 인스타그램이나 페이스북에서 제공하는 "X년 전 오늘" 게시물 리마인드 기능을 제공하는 프라이빗한 메모리 키핑 사이트입니다.
 
@@ -98,7 +98,7 @@ GitHub Pages에 배포하면 자동으로 사이트가 호스팅됩니다.
 ## 프로젝트 구조
 
 ```
-flashback/
+familyalbum/
 ├── app/                 # Next.js App Router
 │   ├── api/             # API 라우트
 │   ├── auth/            # OAuth 콜백 페이지

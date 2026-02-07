@@ -5,7 +5,7 @@
 ## 사전 준비
 
 1. GitHub 리포지토리가 생성되어 있어야 합니다
-2. 리포지토리 이름을 확인하세요 (예: `Flashback`)
+2. 리포지토리 이름을 확인하세요 (예: `FamilyAlbum`)
 
 ## GitHub Pages 설정
 
@@ -57,8 +57,8 @@ git push origin main
 
 배포가 완료되면 다음 URL로 접속할 수 있습니다:
 
-- 리포지토리 이름이 `Flashback`인 경우:
-  - `https://[사용자명].github.io/Flashback/`
+- 리포지토리 이름이 `FamilyAlbum`인 경우:
+  - `https://[사용자명].github.io/FamilyAlbum/`
 
 - 커스텀 도메인을 설정한 경우:
   - 설정한 도메인으로 접속
@@ -82,7 +82,7 @@ GitHub Pages는 정적 사이트만 호스팅하므로:
 
 ### 4. basePath 설정
 - 리포지토리 이름이 URL에 포함됩니다
-- 예: `https://username.github.io/Flashback/`
+- 예: `https://username.github.io/FamilyAlbum/`
 - 커스텀 도메인을 사용하면 basePath를 제거해야 할 수 있습니다
 
 ## 커스텀 도메인 설정 (선택사항)

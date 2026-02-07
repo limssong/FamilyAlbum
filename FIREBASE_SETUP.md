@@ -1,6 +1,6 @@
 # Firebase 설정 가이드
 
-이 가이드는 Flashback 프로젝트에서 Firebase를 처음부터 설정하는 방법을 단계별로 설명합니다.
+이 가이드는 FamilyAlbum 프로젝트에서 Firebase를 처음부터 설정하는 방법을 단계별로 설명합니다.
 
 ---
 
@@ -12,7 +12,7 @@
 
 ### 1.2 프로젝트 추가
 1. "프로젝트 추가" 또는 "Add project" 버튼 클릭
-2. 프로젝트 이름 입력 (예: `flashback`)
+2. 프로젝트 이름 입력 (예: `familyalbum`)
 3. "계속" 클릭
 
 ### 1.3 Google Analytics 설정 (선택사항)
@@ -29,7 +29,7 @@
 ### 2.1 웹 앱 추가
 1. Firebase Console에서 생성한 프로젝트 선택
 2. 프로젝트 개요 페이지에서 `</>` (웹) 아이콘 클릭
-3. 앱 닉네임 입력 (예: `Flashback Web`)
+3. 앱 닉네임 입력 (예: `FamilyAlbum Web`)
 4. "이 앱에 Firebase Hosting도 설정하세요" 체크 해제 (나중에 설정 가능)
 5. "앱 등록" 클릭
 

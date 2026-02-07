@@ -14,9 +14,9 @@
 3. 배포된 브랜치가 올바른지 확인
 
 ### 3. URL 확인
-- 올바른 URL: `https://limssong.github.io/Flashback/`
+- 올바른 URL: `https://limssong.github.io/FamilyAlbum/`
 - 주의: 마지막에 슬래시(`/`)가 있어야 합니다
-- `https://limssong.github.io/Flashback` (슬래시 없음) → 404 에러 가능
+- `https://limssong.github.io/FamilyAlbum` (슬래시 없음) → 404 에러 가능
 
 ## 해결 방법
 
@@ -24,7 +24,7 @@
 `next.config.js`에서 basePath가 올바르게 설정되었는지 확인:
 
 ```javascript
-basePath: '/Flashback'
+basePath: '/FamilyAlbum'
 ```
 
 리포지토리 이름이 다르다면 해당 이름으로 변경하세요.
@@ -114,7 +114,7 @@ npx serve out
 
 ## 추가 확인 사항
 
-1. **리포지토리 이름**: `Flashback`이 맞는지 확인
+1. **리포지토리 이름**: `FamilyAlbum`이 맞는지 확인
 2. **브랜치 이름**: `main` 또는 `master`인지 확인
 3. **권한**: GitHub Pages 권한이 활성화되어 있는지 확인
 4. **캐시**: 브라우저 캐시 삭제 후 재시도

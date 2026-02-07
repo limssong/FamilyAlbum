@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const isProd = process.env.NODE_ENV === 'production'
 // GitHub Pages는 리포지토리 이름 하위에 배포되므로 basePath 설정
-// 리포지토리 이름이 'Flashback'인 경우
-const basePath = isProd ? '/Flashback' : ''
+// 리포지토리 이름이 'FamilyAlbum'인 경우
+const basePath = isProd ? '/FamilyAlbum' : ''
 
 const nextConfig = {
   reactStrictMode: true,
