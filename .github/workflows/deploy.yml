@@ -40,7 +40,6 @@ jobs:
       - name: Build
         run: pnpm run build
         env:
-          GITHUB_REPOSITORY: ${{ github.repository }}
           NODE_ENV: production
           # 환경 변수는 GitHub Secrets에 설정 후 주석 해제하여 사용
           # NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
@@ -52,6 +51,17 @@ jobs:
           # NEXT_PUBLIC_KAKAO_JS_KEY: ${{ secrets.NEXT_PUBLIC_KAKAO_JS_KEY }}
           # NEXT_PUBLIC_NAVER_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_NAVER_CLIENT_ID }}
           # NEXT_PUBLIC_NAVER_CLIENT_SECRET: ${{ secrets.NEXT_PUBLIC_NAVER_CLIENT_SECRET }}
+
+      - name: Verify build output
+        run: |
+          echo "Checking build output..."
+          ls -la out/
+          if [ -f "out/index.html" ]; then
+            echo "✓ index.html exists"
+          else
+            echo "✗ index.html not found!"
+            exit 1
+          fi
 
       - name: Create .nojekyll file
         run: touch out/.nojekyll
