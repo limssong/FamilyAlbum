@@ -81,6 +81,20 @@ pnpm build
 pnpm start
 ```
 
+## GitHub Pages 배포
+
+**GitHub Pages 배포 방법은 `GITHUB_PAGES_SETUP.md` 파일을 참고하세요.**
+
+GitHub Pages에 배포하면 자동으로 사이트가 호스팅됩니다.
+
+### 빠른 배포
+
+1. GitHub 리포지토리 > **Settings** > **Pages**
+2. **Source**: `GitHub Actions` 선택
+3. 코드를 `main` 브랜치에 푸시하면 자동 배포됩니다
+
+배포된 사이트 URL: `https://[사용자명].github.io/[리포지토리명]/`
+
 ## 프로젝트 구조
 
 ```
